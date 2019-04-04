@@ -2,7 +2,7 @@ package financetracker.beans;
 
 import java.io.Serializable;
 
-import net.sourceforge.jtds.jdbc.DateTime;
+import java.sql.Date;
 /*
  class that simulates tables Profits and Spending from database
  all fields in that tables are the same, but this tables are divided for logic purposes
@@ -17,7 +17,7 @@ public class CashFlow implements Serializable{
     private int ID; // auto-increment field in database
     private String description;
     private String category;
-    private DateTime creationDate; // auto-set field in database
+    private Date creationDate; // auto-set field in database
     private double value;
     private int userID;
 
@@ -72,12 +72,12 @@ public class CashFlow implements Serializable{
         this.category = category;
     }
 
-    public DateTime getCreationDate()
+    public Date getCreationDate()
     {
         return creationDate;
     }
 
-    public void setCreationDate(DateTime creationDate)
+    public void setCreationDate(Date creationDate)
     {
         this.creationDate = creationDate;
     }
