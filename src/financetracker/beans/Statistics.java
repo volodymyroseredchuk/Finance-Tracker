@@ -1,14 +1,13 @@
 package financetracker.beans;
 
-import net.sourceforge.jtds.jdbc.DateTime;
-
+import java.sql.Date;
 import java.io.Serializable;
 
 public class Statistics implements Serializable{
 
-    private DateTime timeLog; // auto-set in database
+    private Date timeLog; // auto-set in database
     private int userID;
-    private String actionLog; // may be "login", "logout" or "signup"
+    private String actionLog; // may be "login", "logout", "signup" or "delete"
 
     public Statistics() {}
 
@@ -18,12 +17,12 @@ public class Statistics implements Serializable{
         this.actionLog = actionLog;
     }
 
-    public void setTimeLog(DateTime timeLog)
+    public void setTimeLog(Date timeLog)
     {
         this.timeLog = timeLog;
     }
 
-    public DateTime getTimeLog()
+    public Date getTimeLog()
     {
         return timeLog;
     }
