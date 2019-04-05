@@ -83,7 +83,7 @@ public class DatabaseQueryManager {
     public static void insertStatistics(Connection connection, Statistics statistics)
         throws SQLException
     {
-        String sql = "INSERT INTO Statistics(ActionLog, UserID) " +
+        String sql = "INSERT INTO [Statistics] (ActionLog, UserID) " +
                 "VALUES(?, ?) ";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, statistics.getActionLog());

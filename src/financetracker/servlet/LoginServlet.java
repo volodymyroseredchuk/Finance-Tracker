@@ -1,6 +1,8 @@
 package financetracker.servlet;
 
+import financetracker.beans.Statistics;
 import financetracker.beans.UserAccount;
+import financetracker.connection.DatabaseConnection;
 import financetracker.manager.DatabaseQueryManager;
 import financetracker.manager.TemporaryStoringManager;
 
@@ -79,6 +81,19 @@ public class LoginServlet extends HttpServlet {
             // store logined user in Session
             HttpSession session = request.getSession();
             TemporaryStoringManager.storeLoginedUser(session, user);
+
+            //  store statistics about login in database
+            Connection connection = TemporaryStoringManager.getStoredConnection(request);
+            String actionlog = "login";
+            Statistics statistics = new Statistics(user.getUserID(), actionlog);
+            try
+            {
+                DatabaseQueryManager.insertStatistics(connection, statistics);
+            }
+            catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
 
             // redirect to home page
             response.sendRedirect(request.getContextPath() + "/home");
