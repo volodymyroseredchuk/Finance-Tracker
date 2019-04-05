@@ -13,3 +13,6 @@ SELECT @userID = ID FROM deleted
 
 DELETE FROM Profits WHERE UserID = @userID
 DELETE FROM Spending WHERE UserID = @userID
+
+INSERT INTO [Statistics] (ActionLog, UserID)
+VALUES (N'delete', @userID)
