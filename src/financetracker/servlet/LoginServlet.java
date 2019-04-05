@@ -74,6 +74,7 @@ public class LoginServlet extends HttpServlet {
             dispatcher.forward(request, response);
         }
         // if no error - forward to home page
+        else
         {
             // store logined user in Session
             HttpSession session = request.getSession();
