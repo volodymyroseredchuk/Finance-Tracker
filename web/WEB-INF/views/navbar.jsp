@@ -19,4 +19,6 @@
         <a href="${pageContext.request.contextPath}/signup">Sign up</a>
     </c:if>
 
+    <a href="${pageContext.request.contextPath}/userInfo">User Info</a>
+
 </div>
