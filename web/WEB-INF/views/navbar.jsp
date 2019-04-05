@@ -10,10 +10,12 @@
 <div style="padding: 5px;">
 
     <a href="${pageContext.request.contextPath}/">Home</a>
-    <a href="${pageContext.request.contextPath}/login">Log in</a>
 
     <!-- User stored in session with attribute: loginedUser -->
+
+    <!-- Display Log in and Sign up menu only for not logined users -->
     <c:if test="${empty loginedUser}">
+        <a href="${pageContext.request.contextPath}/login">Log in</a>
         <a href="${pageContext.request.contextPath}/signup">Sign up</a>
     </c:if>
 

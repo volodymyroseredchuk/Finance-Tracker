@@ -18,9 +18,9 @@
 
     <form method="post" action="${pageContext.request.contextPath}/login">
         User Name:<br>
-        <input type="text" name="username"><br>
+        <input type="text" name="username" value="${user.getUserName()}"><br>
         Password:<br>
-        <input type="password" name="password"><br><br>
+        <input type="password" name="password" value="${user.getPassword()}"><br><br>
         <input type="submit" value="Submit">
         <a href="${pageContext.request.contextPath}/">Cancel</a>
     </form>
