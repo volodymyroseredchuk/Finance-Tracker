@@ -6,14 +6,14 @@ import java.io.Serializable;
 public class Statistics implements Serializable{
 
     private Date timeLog; // auto-set in database
-    private int userID;
+    private String userName;
     private String actionLog; // may be "login", "logout", "signup" or "delete"
 
     public Statistics() {}
 
-    public Statistics(int userID, String actionLog)
+    public Statistics(String userName, String actionLog)
     {
-        this.userID = userID;
+        this.userName = userName;
         this.actionLog = actionLog;
     }
 
@@ -27,14 +27,14 @@ public class Statistics implements Serializable{
         return timeLog;
     }
 
-    public void setUserID(int userID)
+    public void setUserName(String userName)
     {
-        this.userID = userID;
+        this.userName = userName;
     }
 
-    public int getUserID()
+    public String getUserName()
     {
-        return userID;
+        return userName;
     }
 
     public void setActionLog(String actionLog)

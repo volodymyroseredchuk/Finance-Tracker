@@ -9,10 +9,11 @@ ON [User_Account]
 FOR DELETE
 AS
 DECLARE @userID int
-SELECT @userID = ID FROM deleted
+DECLARE @userName nvarchar(50)
+SELECT @userID = ID, @userName = UserName FROM deleted
 
 DELETE FROM Profits WHERE UserID = @userID
 DELETE FROM Spending WHERE UserID = @userID
 
-INSERT INTO [Statistics] (ActionLog, UserID)
-VALUES (N'delete', @userID)
+INSERT INTO [Statistics] (ActionLog, UserName)
+VALUES (N'delete', @userName)

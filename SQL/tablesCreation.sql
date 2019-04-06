@@ -10,8 +10,8 @@ Balance float DEFAULT 0.0
 
 CREATE TABLE [Statistics] (
 TimeLog datetime DEFAULT GETDATE(),
-ActionLog nvarchar(15), -- values: signup, login, logout
-UserID int FOREIGN KEY REFERENCES User_Account(ID)
+ActionLog nvarchar(15), -- values: signup, login, logout, delete
+UserName nvarchar(50) -- not foreign key - because user can delete account
 );
 
 CREATE TABLE Profits (

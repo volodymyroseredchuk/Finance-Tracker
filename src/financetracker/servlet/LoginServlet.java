@@ -85,7 +85,7 @@ public class LoginServlet extends HttpServlet {
             //  store statistics about login in database
             Connection connection = TemporaryStoringManager.getStoredConnection(request);
             String actionlog = "login";
-            Statistics statistics = new Statistics(user.getUserID(), actionlog);
+            Statistics statistics = new Statistics(user.getUserName(), actionlog);
             try
             {
                 DatabaseQueryManager.insertStatistics(connection, statistics);

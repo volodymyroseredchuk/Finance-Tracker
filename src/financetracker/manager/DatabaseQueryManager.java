@@ -83,11 +83,11 @@ public class DatabaseQueryManager {
     public static void insertStatistics(Connection connection, Statistics statistics)
         throws SQLException
     {
-        String sql = "INSERT INTO [Statistics] (ActionLog, UserID) " +
+        String sql = "INSERT INTO [Statistics] (ActionLog, UserName) " +
                 "VALUES(?, ?) ";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, statistics.getActionLog());
-        preparedStatement.setInt(2, statistics.getUserID());
+        preparedStatement.setString(2, statistics.getUserName());
 
         preparedStatement.executeUpdate();
     }
@@ -105,9 +105,9 @@ public class DatabaseQueryManager {
         {
             Date timeLog = resultSet.getDate("TimeLog");
             String actionLog = resultSet.getString("ActionLog");
-            int userID = resultSet.getInt("UserID");
+            String userName = resultSet.getString("UserName");
 
-            Statistics statistics = new Statistics(userID, actionLog);
+            Statistics statistics = new Statistics(userName, actionLog);
             statistics.setTimeLog(timeLog);
 
             list.add(statistics);

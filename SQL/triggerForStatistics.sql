@@ -8,9 +8,9 @@ CREATE TRIGGER UserSignUpTrigger
 ON [User_Account]
 FOR INSERT
 AS
-DECLARE @userID int
+DECLARE @userName nvarchar(50)
 
-SELECT @userID = ID FROM inserted
+SELECT @userName = UserName FROM inserted
 
-INSERT INTO [Statistics] (ActionLog, UserID)
-VALUES (N'signup', @userID)
+INSERT INTO [Statistics] (ActionLog, UserName)
+VALUES (N'signup', @userName)

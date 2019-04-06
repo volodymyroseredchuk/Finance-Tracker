@@ -32,7 +32,7 @@ public class LogoutServlet extends HttpServlet {
         //  store statistics about logout in database
         Connection connection = TemporaryStoringManager.getStoredConnection(request);
         String actionLog = "logout";
-        Statistics statistics = new Statistics(user.getUserID(), actionLog);
+        Statistics statistics = new Statistics(user.getUserName(), actionLog);
         try
         {
             DatabaseQueryManager.insertStatistics(connection, statistics);
