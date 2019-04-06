@@ -15,7 +15,7 @@
     <jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
     <jsp:include page="/WEB-INF/views/navbar.jsp"></jsp:include>
 
-<c:if test="${not empty success}">
+<c:if test="${not empty changePasswordSuccess}">
     <script>
         window.alert("Password was changed successfully!");
     </script>

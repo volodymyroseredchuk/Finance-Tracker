@@ -14,25 +14,22 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-@WebServlet(name = "ChangePasswordServlet", urlPatterns = {"/changePassword"})
-public class ChangePasswordServlet extends HttpServlet {
+@WebServlet(name = "DeleteAccountServlet", urlPatterns = {"/deleteAccount"})
+public class DeleteAccountServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // get info from form
+        // get input data
         String userName = request.getParameter("username");
-        String oldPassword = request.getParameter("oldPassword");
-        String newPassword = request.getParameter("newPassword");
-        String confirmPassword = request.getParameter("confirmPassword");
+        String password = request.getParameter("password");
 
-        String errorString = null;
         UserAccount user = null;
+        String errorString = null;
 
         // check input data
-        if(userName == null || oldPassword == null || newPassword == null || confirmPassword == null ||
-        userName.isEmpty() || oldPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty())
+        if(userName == null || password == null || userName.isEmpty() || password.isEmpty())
         {
             // set error type
-            errorString = "Please input all fields!";
+            errorString = "Please input password to confirm deleting";
         }
         else
         {
@@ -41,23 +38,20 @@ public class ChangePasswordServlet extends HttpServlet {
             try
             {
                 user = DatabaseQueryManager.findUser(connection, userName);
-                // check if old password is typed correctly
-                if(user == null || !oldPassword.equals(user.getPassword()))
-                {
-                    // set error type
-                    errorString = "Password is invalid!";
-                }
-                // check if new password and its confirmation is equal
-                else if(!newPassword.equals(confirmPassword))
+                // check if password is correct
+                if(user == null || !password.equals(user.getPassword()))
                 {
                     // set error type
                     errorString = "Confirmation password is invalid!";
                 }
                 else
                 {
-                    // change password
-                    user.setPassword(newPassword);
-                    DatabaseQueryManager.modifyUser(connection, user);
+                    // delete account
+                    DatabaseQueryManager.deleteUser(connection, userName);
+                    // invalidate session and redirect to home page
+                    request.getSession().invalidate();
+                    response.sendRedirect(request.getContextPath() + "/home");
+                    return;
                 }
             }
             catch(SQLException e)
@@ -67,17 +61,15 @@ public class ChangePasswordServlet extends HttpServlet {
             }
         }
 
-
         if(user == null)
         {
             user = TemporaryStoringManager.getStoredLoginedUser(request.getSession());
         }
-        // store user and error string and success in request attribute
-        request.setAttribute("changePasswordSuccess", "success");
+        // store user and error string in request attributes
         request.setAttribute("user", user);
         request.setAttribute("errorString", errorString);
-        // forward to user info page
 
+        // forward to user info page
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/userInfoView.jsp");
         dispatcher.forward(request, response);
     }
