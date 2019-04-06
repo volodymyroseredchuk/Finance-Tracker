@@ -172,23 +172,22 @@ public class DatabaseQueryManager {
     public static List<CashFlow> queryCashFlow(Connection connection, int userID, boolean isProfit)
             throws SQLException
     {
-        String tableName;
+        String sql;
         if(isProfit)
         {
             // select from Profits
-            tableName = "Profits";
+            sql = "SELECT * FROM Profits WHERE UserID = ?";
         }
         else
         {
             // select from Spending
-            tableName = "Spending";
+            sql = "SELECT * FROM Spending WHERE UserID = ?";
         }
 
         List<CashFlow> list = new ArrayList<CashFlow>();
-        String sql = "SELECT * FROM ? WHERE UserID = ?";
+
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, tableName);
-        preparedStatement.setInt(2, userID);
+        preparedStatement.setInt(1, userID);
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while(resultSet.next())

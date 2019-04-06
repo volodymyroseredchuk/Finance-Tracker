@@ -20,5 +20,6 @@
     </c:if>
 
     <a href="${pageContext.request.contextPath}/userInfo">User Info</a>
+    <a href="${pageContext.request.contextPath}/cashFlow">Cash Flow</a>
 
 </div>
