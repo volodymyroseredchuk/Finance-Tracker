@@ -45,7 +45,7 @@ public class SecurityFilter implements Filter {
             }
 
             // user is not logined - redirect to login page
-            response.sendRedirect(request.getContextPath() + "/login");
+            response.sendRedirect(request.getContextPath() + "/login?redirect=" + request.getRequestURI());
             return;
         }
 

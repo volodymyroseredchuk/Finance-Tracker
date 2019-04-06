@@ -95,8 +95,18 @@ public class LoginServlet extends HttpServlet {
                 e.printStackTrace();
             }
 
-            // redirect to home page
-            response.sendRedirect(request.getContextPath() + "/home");
+
+            String redirect = request.getParameter("redirect");
+            if(redirect == null || redirect.isEmpty())
+            {
+                // redirect to home page
+                response.sendRedirect(request.getContextPath() + "/home");
+            }
+            else
+            {
+                // redirect to page from which user came to login page
+                response.sendRedirect(redirect);
+            }
         }
     }
 

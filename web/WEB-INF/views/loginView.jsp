@@ -16,7 +16,7 @@
     <h3>Login Page</h3>
     <p style="color: red;">${errorString}</p>
 
-    <form method="post" action="${pageContext.request.contextPath}/login">
+    <form method="post" action="${pageContext.request.contextPath}/login?redirect=${pageContext.request.getParameter("redirect")}">
         User Name:<br>
         <input type="text" name="username" value="${user.getUserName()}"><br>
         Password:<br>
