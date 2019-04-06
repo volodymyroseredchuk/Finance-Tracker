@@ -28,7 +28,7 @@
 
     <c:if test="${not empty deleteSpendingSuccess}">
         <script>
-            window.alert("Profit was deleted successfully!");
+            window.alert("Spending was deleted successfully!");
         </script>
     </c:if>
 
@@ -102,7 +102,7 @@
                 Category:<br>
                 <input type="text" name="category"><br>
                 Value:<br>
-                <input type="number" name="value"><br><br>
+                <input type="number" step="0.01" name="value"><br><br>
                 <input type="submit" value="Submit">
                 <a href="${pageContext.request.contextPath}/cashFlow">Cancel</a>
                 <br/><br/>
@@ -149,7 +149,7 @@
                 Category:<br>
                 <input type="text" name="category"><br>
                 Value:<br>
-                <input type="number" name="value"><br><br>
+                <input type="number" step="0.01" name="value"><br><br>
                 <input type="submit" value="Submit">
                 <a href="${pageContext.request.contextPath}/cashFlow">Cancel</a>
                 <br/><br/>

@@ -120,26 +120,25 @@ public class DatabaseQueryManager {
     public static void insertCashFlow(Connection connection, CashFlow cashFlow)
             throws SQLException
     {
-        String tableName;
+        String sql;
         if(cashFlow.getIsProfit())
         {
             // insert into Profits
-            tableName = "Profits";
+            sql = "INSERT INTO Profits (Description, Category, Value, UserID) " +
+                    "VALUES (?, ?, ?, ?) ";
         }
         else
         {
             // insert into Spending
-            tableName = "Spending";
+            sql = "INSERT INTO Spending (Description, Category, Value, UserID) " +
+                    "VALUES (?, ?, ?, ?) ";
         }
 
-        String sql = "INSERT INTO ? (Description, Category, Value, UserID) " +
-                "VALUES (?, ?, ?, ?) ";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, tableName);
-        preparedStatement.setString(2, cashFlow.getDescription());
-        preparedStatement.setString(3, cashFlow.getCategory());
-        preparedStatement.setDouble(4, cashFlow.getValue());
-        preparedStatement.setInt(5, cashFlow.getUserID());
+        preparedStatement.setString(1, cashFlow.getDescription());
+        preparedStatement.setString(2, cashFlow.getCategory());
+        preparedStatement.setDouble(3, cashFlow.getValue());
+        preparedStatement.setInt(4, cashFlow.getUserID());
 
         preparedStatement.executeUpdate();
     }
@@ -148,22 +147,20 @@ public class DatabaseQueryManager {
     public static void deleteCashFlow(Connection connection, int cashFlowID, boolean isProfit)
             throws SQLException
     {
-        String tableName;
+        String sql;
         if(isProfit)
         {
             // delete from Profits
-            tableName = "Profits";
+            sql = "DELETE FROM Profits WHERE ID = ?";
         }
         else
         {
             // delete from Spending
-            tableName = "Spending";
+            sql = "DELETE FROM Spending WHERE ID = ?";
         }
 
-        String sql = "DELETE FROM ? WHERE ID = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, tableName);
-        preparedStatement.setInt(2, cashFlowID);
+        preparedStatement.setInt(1, cashFlowID);
 
         preparedStatement.executeUpdate();
     }
@@ -213,26 +210,25 @@ public class DatabaseQueryManager {
     public static void modifyCashFlow(Connection connection, CashFlow cashFlow)
             throws SQLException
     {
-        String tableName;
+        String sql;
         if(cashFlow.getIsProfit())
         {
             // update in Profits
-            tableName = "Profits";
+            sql = "UPDATE Profits SET Description = ?, Category = ?, Value = ? " +
+                    "WHERE ID = ? AND UserID = ?";
         }
         else
         {
             // update in Spending
-            tableName = "Spending";
+            sql = "UPDATE Spending SET Description = ?, Category = ?, Value = ? " +
+                    "WHERE ID = ? AND UserID = ?";
         }
-        String sql = "UPDATE ? SET Description = ?, Category = ?, Value = ? " +
-                "WHERE ID = ? AND UserID = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, tableName);
-        preparedStatement.setString(2, cashFlow.getDescription());
-        preparedStatement.setString(3, cashFlow.getCategory());
-        preparedStatement.setDouble(4, cashFlow.getValue());
-        preparedStatement.setInt(5, cashFlow.getID());
-        preparedStatement.setInt(6, cashFlow.getUserID());
+        preparedStatement.setString(1, cashFlow.getDescription());
+        preparedStatement.setString(2, cashFlow.getCategory());
+        preparedStatement.setDouble(3, cashFlow.getValue());
+        preparedStatement.setInt(4, cashFlow.getID());
+        preparedStatement.setInt(5, cashFlow.getUserID());
 
         preparedStatement.executeUpdate();
     }

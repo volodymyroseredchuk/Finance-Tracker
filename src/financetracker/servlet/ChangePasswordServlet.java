@@ -76,8 +76,8 @@ public class ChangePasswordServlet extends HttpServlet {
         request.setAttribute("changePasswordSuccess", "success");
         request.setAttribute("user", user);
         request.setAttribute("errorString", errorString);
-        // forward to user info page
 
+        // forward to user info page
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/userInfoView.jsp");
         dispatcher.forward(request, response);
     }
