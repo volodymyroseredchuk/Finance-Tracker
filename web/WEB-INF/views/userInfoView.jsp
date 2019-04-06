@@ -26,21 +26,45 @@
 
     <button type="button" value="Change Password" name="btnChangePassword" onclick="changePassword()">Change Password</button>
     <button type="button" value="Delete Account" name="btnDeleteAccount" onclick="deleteAccount()">Delete Account</button>
-    <br/>
+    <br/><br/>
 
 <script>
     function changePassword()
     {
-        document.getElementById("hiddenChangePasswordForm").style.visibility = "visible";
+        // second button click will hide the form
+        if(document.getElementById("hiddenChangePasswordForm").style.display === "block")
+        {
+            document.getElementById("hiddenChangePasswordForm").style.display = "none";
+            return;
+        }
+
+        // only one of two choices can be available at the same moment
+        if(document.getElementById("hiddenDeleteAccountForm").style.display === "block")
+        {
+            document.getElementById("hiddenDeleteAccountForm").style.display = "none"
+        }
+        document.getElementById("hiddenChangePasswordForm").style.display = "block";
     }
 
     function deleteAccount()
     {
-        document.getElementById("hiddenDeleteAccountForm").style.visibility = "visible";
+        // second button click will hide the form
+        if(document.getElementById("hiddenDeleteAccountForm").style.display === "block")
+        {
+            document.getElementById("hiddenDeleteAccountForm").style.display = "none";
+            return;
+        }
+
+        // only one of two choices can be available at the same moment
+        if(document.getElementById("hiddenChangePasswordForm").style.display === "block")
+        {
+            document.getElementById("hiddenChangePasswordForm").style.display = "none"
+        }
+        document.getElementById("hiddenDeleteAccountForm").style.display = "block";
     }
 </script>
 
-    <div id="hiddenChangePasswordForm" style="visibility: hidden">
+    <div id="hiddenChangePasswordForm" style="display: none;">
         <form method="post" action="${pageContext.request.contextPath}/changePassword">
             <input type="hidden" name="username" value="${user.getUserName()}">
             Old Password:<br>
@@ -51,10 +75,11 @@
             <input type="password" name="confirmPassword"><br><br>
             <input type="submit" value="Submit">
             <a href="${pageContext.request.contextPath}/userInfo">Cancel</a>
+            <br/><br/>
         </form>
     </div>
 
-    <div id="hiddenDeleteAccountForm" style="visibility: hidden;">
+    <div id="hiddenDeleteAccountForm" style="display: none;">
         <form method="post" action="${pageContext.request.contextPath}/deleteAccount">
             <input type="hidden" name="username" value="${user.getUserName()}">
             Confirm deleting account with password:<br>
