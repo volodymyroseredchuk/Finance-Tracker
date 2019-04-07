@@ -11,6 +11,7 @@
     <title>Home Page</title>
 </head>
 <body>
+    <%-- include header and navigation bar --%>
     <jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
     <jsp:include page="/WEB-INF/views/navbar.jsp"></jsp:include>
 
@@ -18,10 +19,13 @@
     <b>It includes the following functions:</b>
     <ul>
         <li>Log in or Sign up</li>
-        <li>Manage cash flow</li>
-        <li>Create, edit and delete profits and spending</li>
+        <li>Manage cash flows</li>
+        <li>View, create, edit and delete profits and spending</li>
+        <li>Change password or delete account</li>
+        <li>View user information and current balance</li>
     </ul>
 
+    <%-- include footer --%>
     <jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
 </body>
 </html>

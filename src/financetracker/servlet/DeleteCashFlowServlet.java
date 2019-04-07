@@ -41,8 +41,8 @@ public class DeleteCashFlowServlet extends HttpServlet {
             // get data in right format
             try
             {
-                isProfit = Boolean.parseBoolean(isProfitString);
-                cashFlowID = Integer.parseInt(cashFlowIDString);
+                isProfit = Boolean.parseBoolean(isProfitString.trim());
+                cashFlowID = Integer.parseInt(cashFlowIDString.trim());
             }
             catch (Exception e)
             {
@@ -76,7 +76,7 @@ public class DeleteCashFlowServlet extends HttpServlet {
                 UserAccount updatedUser = DatabaseQueryManager.findUser(connection, user.getUserName());
                 user.setBalance(updatedUser.getBalance());
             }
-            catch (SQLException e)
+            catch (Exception e)
             {
                 // set error type
                 e.printStackTrace();

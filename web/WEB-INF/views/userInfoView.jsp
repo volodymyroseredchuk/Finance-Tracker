@@ -9,9 +9,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
+    <script src="${pageContext.request.contextPath}/javascript/userInfoFunctions.js"></script>
+
     <title>User Info</title>
 </head>
 <body>
+    <%-- include header and navigation bar --%>
     <jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
     <jsp:include page="/WEB-INF/views/navbar.jsp"></jsp:include>
 
@@ -31,46 +34,13 @@
     Balance: <b>${user.getBalance()}</b>
     <br/><br/>
 
+    <%-- buttons to show hidden forms to change password or delete account ---%>
     <button type="button" value="Change Password" name="btnChangePassword" onclick="changePassword()">Change Password</button>
     <button type="button" value="Delete Account" name="btnDeleteAccount" onclick="deleteAccount()">Delete Account</button>
     <br/><br/>
 
-<script>
-    function changePassword()
-    {
-        // second button click will hide the form
-        if(document.getElementById("hiddenChangePasswordForm").style.display === "block")
-        {
-            document.getElementById("hiddenChangePasswordForm").style.display = "none";
-            return;
-        }
 
-        // only one of two choices can be available at the same moment
-        if(document.getElementById("hiddenDeleteAccountForm").style.display === "block")
-        {
-            document.getElementById("hiddenDeleteAccountForm").style.display = "none"
-        }
-        document.getElementById("hiddenChangePasswordForm").style.display = "block";
-    }
-
-    function deleteAccount()
-    {
-        // second button click will hide the form
-        if(document.getElementById("hiddenDeleteAccountForm").style.display === "block")
-        {
-            document.getElementById("hiddenDeleteAccountForm").style.display = "none";
-            return;
-        }
-
-        // only one of two choices can be available at the same moment
-        if(document.getElementById("hiddenChangePasswordForm").style.display === "block")
-        {
-            document.getElementById("hiddenChangePasswordForm").style.display = "none"
-        }
-        document.getElementById("hiddenDeleteAccountForm").style.display = "block";
-    }
-</script>
-
+    <%-- hidden div-container that contains form to change password - appears on button click--%>
     <div id="hiddenChangePasswordForm" style="display: none;">
         <form method="post" action="${pageContext.request.contextPath}/changePassword">
             <input type="hidden" name="username" value="${user.getUserName()}">
@@ -86,6 +56,7 @@
         </form>
     </div>
 
+    <%-- hidden div-container that contains form to delete account - appears on button click--%>
     <div id="hiddenDeleteAccountForm" style="display: none;">
         <form method="post" action="${pageContext.request.contextPath}/deleteAccount">
             <input type="hidden" name="username" value="${user.getUserName()}">
@@ -96,6 +67,7 @@
         </form>
     </div>
 
+    <%-- include footer --%>
     <jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
 </body>
 </html>

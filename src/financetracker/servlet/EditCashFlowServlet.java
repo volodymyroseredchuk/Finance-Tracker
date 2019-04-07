@@ -35,9 +35,9 @@ public class EditCashFlowServlet extends HttpServlet {
 
         try
         {
-            value = Double.parseDouble(request.getParameter("value"));
-            ID = Integer.parseInt(request.getParameter("ID"));
-            isProfit = Boolean.parseBoolean(request.getParameter("isProfit"));
+            value = Double.parseDouble(request.getParameter("value").trim());
+            ID = Integer.parseInt(request.getParameter("ID").trim());
+            isProfit = Boolean.parseBoolean(request.getParameter("isProfit").trim());
         }
         catch (Exception e)
         {
@@ -48,7 +48,7 @@ public class EditCashFlowServlet extends HttpServlet {
         }
 
         // check input data
-        if(description == null || category == null || description.isEmpty() || category.isEmpty())
+        if(description == null || category == null || description.trim().isEmpty() || category.trim().isEmpty())
         {
             // set error type
             hasError = true;
@@ -56,6 +56,9 @@ public class EditCashFlowServlet extends HttpServlet {
         }
         else if(!hasError)
         {
+            // get rid of redundant whitespaces if they are present
+            description = description.trim();
+            category = category.trim();
             // update cash flow in database
             cashFlow = new CashFlow(description, category, value, user.getUserID(), isProfit);
             cashFlow.setID(ID);

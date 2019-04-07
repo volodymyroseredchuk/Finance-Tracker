@@ -9,158 +9,23 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $(".btnProfitDelete").click(function (event) {
-                event.preventDefault();
-                var profitID = event.target.id.replace( /[^\d.]/g, '' );
-                var isProfit = "true";
+    <script src="${pageContext.request.contextPath}/javascript/jquery-3.3.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/javascript/cashFlowFunctions.js"></script>
+    <script src="${pageContext.request.contextPath}/javascript/cashFlowJQuery.js"></script>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/cashFlowCSS.css">
 
-                if(!confirm("Are you really want to delete this profit?"))
-                {
-                    return;
-                }
-
-                $.ajax({
-                    url : "deleteCashFlow",
-                    type : "POST",
-                    data : {
-                        isProfit : isProfit,
-                        cashFlowID : profitID
-                    },
-                    success : function (responseText) {
-                        if(responseText === "success"){
-                            var deleteID = "#trProfit" + profitID;
-                            $(deleteID).remove();
-                            alert("Good response - Profit is removed!");
-                        }
-                        else
-                        {
-                            alert("Bad response! " + responseText);
-                        }
-                    }
-                });
-            })
-        })
-
-        $(document).ready(function () {
-            $(".btnSpendingDelete").click(function (event) {
-                event.preventDefault();
-                var spendingID = event.target.id.replace( /[^\d.]/g, '' );
-                var isProfit = "false";
-
-                if(!confirm("Are you really want to delete this spending?"))
-                {
-                    return;
-                }
-
-                $.ajax({
-                    url : "deleteCashFlow",
-                    type : "POST",
-                    data : {
-                        isProfit : isProfit,
-                        cashFlowID : spendingID
-                    },
-                    success : function (responseText) {
-                        if(responseText === "success"){
-                            var deleteID = "#trSpending" + spendingID;
-                            $(deleteID).remove();
-                            alert("Good response - Spending is removed!");
-                        }
-                        else
-                        {
-                            alert("Bad response! " + responseText);
-                        }
-                    }
-                });
-            })
-        })
-    </script>
     <title>Cash Flow</title>
-
-    <style>
-        table, th, td {
-            border: 1px solid black;
-        }
-        #tableProfits tr > *:nth-child(1) {
-            display: none;
-        }
-        #tableSpending tr > *:nth-child(1) {
-            display: none;
-        }
-    </style>
 </head>
 
 <body>
+    <%-- include header and navigation bar --%>
     <jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
     <jsp:include page="/WEB-INF/views/navbar.jsp"></jsp:include>
-
-    <script>
-        function addProfit()
-        {
-            document.getElementById("hiddenAddProfit").style.display = "block";
-        }
-
-        function addProfitCancel()
-        {
-            document.getElementById("hiddenAddProfit").style.display = "none";
-
-            document.getElementById("hiddenAddProfitDescription").setAttribute("value", "");
-            document.getElementById("hiddenAddProfitCategory").setAttribute("value", "");
-            document.getElementById("hiddenAddProfitValue").setAttribute("value", "");
-        }
-
-        function addSpending()
-        {
-            document.getElementById("hiddenAddSpending").style.display = "block";
-        }
-
-        function addSpendingCancel()
-        {
-            document.getElementById("hiddenAddSpending").style.display = "none";
-
-            document.getElementById("hiddenAddSpendingDescription").setAttribute("value", "");
-            document.getElementById("hiddenAddSpendingCategory").setAttribute("value", "");
-            document.getElementById("hiddenAddSpendingValue").setAttribute("value", "");
-        }
-
-        function editProfit(ID, description, category, value)
-        {
-            document.getElementById("hiddenEditProfit").style.display = "block";
-
-            document.getElementById("hiddenEditProfitID").setAttribute("value", ID);
-            document.getElementById("hiddenEditProfitDescription").setAttribute("value", description);
-            document.getElementById("hiddenEditProfitCategory").setAttribute("value", category);
-            document.getElementById("hiddenEditProfitValue").setAttribute("value", value);
-        }
-
-        function editProfitCancel()
-        {
-            document.getElementById("hiddenEditProfit").style.display = "none";
-        }
-
-        function editSpending(ID, description, category, value)
-        {
-            document.getElementById("hiddenEditSpending").style.display = "block";
-
-            document.getElementById("hiddenEditSpendingID").setAttribute("value", ID);
-            document.getElementById("hiddenEditSpendingDescription").setAttribute("value", description);
-            document.getElementById("hiddenEditSpendingCategory").setAttribute("value", category);
-            document.getElementById("hiddenEditSpendingValue").setAttribute("value", value);
-        }
-
-        function editSpendingCancel()
-        {
-            document.getElementById("hiddenEditSpending").style.display = "none";
-        }
-
-
-    </script>
 
     <h3>Cash Flow Information Page</h3>
     <p style="color: red;">${errorString}</p>
 
+    <%-- Div-container that contains table with profits and containers that contain forms to add and edit profits--%>
     <div style="float: left; width: 50%;">
         <caption><h1 style="text-align: center">Profits</h1></caption>
         <table id="tableProfits">
@@ -174,6 +39,7 @@
                 <th style="width: 10%; text-align: left">Delete</th>
             </tr>
 
+            <%-- for each profit in list - table row will be created - with buttons to edit and delete that profit--%>
             <c:forEach items="${profitsList}" var="profit">
                 <tr id="trProfit${profit.getID()}">
                     <td>${profit.getID()}</td>
@@ -192,9 +58,11 @@
             </c:forEach>
         </table>
 
+        <%-- button to show form that allows to add new profit --%>
         <br/>
         <button type="button" value="AddProfit" name="btnProfitAdd" onclick="addProfit()">Add profit</button><br/><br/>
 
+        <%-- hidden div-container that contains form to add new profit - appears on button click --%>
         <div id="hiddenAddProfit" style="display: none;">
             <form method="post" action="${pageContext.request.contextPath}/addCashFlow">
                 <input type="hidden" name="isProfit" value="true">
@@ -210,6 +78,7 @@
             </form>
         </div>
 
+        <%-- hidden div-container that contains form to edit profit - appears on button click --%>
         <div id="hiddenEditProfit" style="display: none">
             <form method="post" action="${pageContext.request.contextPath}/editCashFlow">
                 <input type="hidden" name="isProfit" value="true">
@@ -227,6 +96,7 @@
         </div>
     </div>
 
+    <%-- Div-container that contains table with spending and containers that contain forms to add and edit spending--%>
     <div style="float: left; width: 50%;">
         <caption><h1 style="text-align: center">Spending</h1></caption>
         <table id="tableSpending">
@@ -240,6 +110,7 @@
                 <th style="width: 10%; text-align: left">Delete</th>
             </tr>
 
+            <%-- for each spending in list - table row will be created - with buttons to edit and delete that spending--%>
             <c:forEach items="${spendingList}" var="spending">
                 <tr id="trSpending${spending.getID()}">
                     <td>${spending.getID()}</td>
@@ -258,9 +129,11 @@
             </c:forEach>
         </table>
 
+        <%-- button to show form that allows to add new spending --%>
         <br/>
         <button type="button" value="AddSpending" name="btnSpendingAdd" onclick="addSpending()">Add spending</button><br/><br/>
 
+        <%-- hidden div-container that contains form to add new spending - appears on button click --%>
         <div id="hiddenAddSpending" style="display: none;">
             <form method="post" action="${pageContext.request.contextPath}/addCashFlow">
                 <input type="hidden" name="isProfit" value="false">
@@ -276,6 +149,7 @@
             </form>
         </div>
 
+        <%-- hidden div-container that contains form to edit profit - appears on button click --%>
         <div id="hiddenEditSpending" style="display: none">
             <form method="post" action="${pageContext.request.contextPath}/editCashFlow">
                 <input type="hidden" name="isProfit" value="false">
@@ -293,6 +167,7 @@
         </div>
     </div>
 
+    <%-- include footer --%>
     <jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
 </body>
 </html>

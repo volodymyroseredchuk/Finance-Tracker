@@ -34,8 +34,8 @@ public class AddCashFlowServlet extends HttpServlet {
 
         try
         {
-            value = Double.parseDouble(request.getParameter("value"));
-            isProfit = Boolean.parseBoolean(request.getParameter("isProfit"));
+            value = Double.parseDouble(request.getParameter("value").trim());
+            isProfit = Boolean.parseBoolean(request.getParameter("isProfit").trim());
         }
         catch (Exception e)
         {
@@ -46,7 +46,7 @@ public class AddCashFlowServlet extends HttpServlet {
         }
 
         // check input data
-        if(description == null || category == null || description.isEmpty() || category.isEmpty())
+        if(description == null || category == null || description.trim().isEmpty() || category.trim().isEmpty())
         {
             // set error type
             hasError = true;
@@ -54,6 +54,9 @@ public class AddCashFlowServlet extends HttpServlet {
         }
         else if(!hasError)
         {
+            // get rid of redundant whitespaces if they are present
+            description = description.trim();
+            category = category.trim();
             // insert new cash flow in database
             cashFlow = new CashFlow(description, category, value, user.getUserID(), isProfit);
             try

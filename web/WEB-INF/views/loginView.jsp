@@ -11,6 +11,7 @@
     <title>Login</title>
 </head>
 <body>
+    <%-- include header and navigation bar --%>
     <jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
     <jsp:include page="/WEB-INF/views/navbar.jsp"></jsp:include>
     <h3>Login Page</h3>
@@ -24,6 +25,8 @@
         <input type="submit" value="Submit">
         <a href="${pageContext.request.contextPath}/">Cancel</a>
     </form>
+
+    <%-- include footer --%>
     <jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
 </body>
 </html>

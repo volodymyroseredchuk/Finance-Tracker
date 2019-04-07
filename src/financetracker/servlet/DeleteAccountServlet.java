@@ -26,13 +26,16 @@ public class DeleteAccountServlet extends HttpServlet {
         String errorString = null;
 
         // check input data
-        if(userName == null || password == null || userName.isEmpty() || password.isEmpty())
+        if(userName == null || password == null || userName.trim().isEmpty() || password.trim().isEmpty())
         {
             // set error type
             errorString = "Please input password to confirm deleting";
         }
         else
         {
+            // get rid of redundant whitespaces if they are present
+            userName = userName.trim();
+            password = password.trim();
             // find user in database
             Connection connection = TemporaryStoringManager.getStoredConnection(request);
             try

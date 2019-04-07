@@ -1,0 +1,12 @@
+table, th, td {
+    border: 1px solid black;
+}
+
+/* the first column in table is only to identify profit or spending ID before request
+ so not showing it to user*/
+#tableProfits tr > *:nth-child(1) {
+    display: none;
+}
+#tableSpending tr > *:nth-child(1) {
+    display: none;
+}

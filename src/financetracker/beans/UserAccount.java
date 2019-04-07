@@ -81,6 +81,7 @@ public class UserAccount implements Serializable{
         this.formatBalance();
     }
 
+    /* function that leaves only 2 decimal digits - as in real money*/
     private void formatBalance()
     {
         DecimalFormat decimalFormat = new DecimalFormat("0.00");

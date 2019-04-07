@@ -32,7 +32,7 @@ public class LoginServlet extends HttpServlet {
         String errorString = null;
 
         // check input data
-        if(userName == null || password == null || userName.isEmpty() || password.isEmpty())
+        if(userName == null || password == null || userName.trim().isEmpty() || password.trim().isEmpty())
         {
             // set type of error
             hasError = true;
@@ -40,6 +40,9 @@ public class LoginServlet extends HttpServlet {
         }
         else
         {
+            // get rid of redundant whitespaces if they are present
+            userName = userName.trim();
+            password = password.trim();
             // check login credentials
             Connection connection = TemporaryStoringManager.getStoredConnection(request);
             try

@@ -29,13 +29,18 @@ public class ChangePasswordServlet extends HttpServlet {
 
         // check input data
         if(userName == null || oldPassword == null || newPassword == null || confirmPassword == null ||
-        userName.isEmpty() || oldPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty())
+        userName.trim().isEmpty() || oldPassword.trim().isEmpty() || newPassword.trim().isEmpty() || confirmPassword.trim().isEmpty())
         {
             // set error type
             errorString = "Please input all fields!";
         }
         else
         {
+            // get rid of redundant whitespaces if they are present
+            userName = userName.trim();
+            oldPassword = oldPassword.trim();
+            newPassword = newPassword.trim();
+            confirmPassword = confirmPassword.trim();
             // find user in database
             Connection connection = TemporaryStoringManager.getStoredConnection(request);
             try

@@ -29,7 +29,7 @@ public class SignupServlet extends HttpServlet {
         String errorString = null;
 
         // check input data
-        if(userName == null || password == null || userName.isEmpty() || password.isEmpty())
+        if(userName == null || password == null || userName.trim().isEmpty() || password.trim().isEmpty())
         {
             // set error type
             hasError = true;
@@ -37,6 +37,9 @@ public class SignupServlet extends HttpServlet {
         }
         else
         {
+            // get rid of redundant whitespaces if they are present
+            userName = userName.trim();
+            password = password.trim();
             // check if user with that userName is already existed in database
             Connection connection = TemporaryStoringManager.getStoredConnection(request);
             try
