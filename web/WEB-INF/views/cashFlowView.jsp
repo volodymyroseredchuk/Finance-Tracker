@@ -9,7 +9,76 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".btnProfitDelete").click(function (event) {
+                event.preventDefault();
+                var profitID = event.target.id.replace( /[^\d.]/g, '' );
+                var isProfit = "true";
+
+                if(!confirm("Are you really want to delete this profit?"))
+                {
+                    return;
+                }
+
+                $.ajax({
+                    url : "deleteCashFlow",
+                    type : "POST",
+                    data : {
+                        isProfit : isProfit,
+                        cashFlowID : profitID
+                    },
+                    success : function (responseText) {
+                        if(responseText === "success"){
+                            var deleteID = "#trProfit" + profitID;
+                            $(deleteID).remove();
+                            alert("Good response - Profit is removed!");
+                        }
+                        else
+                        {
+                            alert("Bad response! " + responseText);
+                        }
+                    }
+                });
+            })
+        })
+
+        $(document).ready(function () {
+            $(".btnSpendingDelete").click(function (event) {
+                event.preventDefault();
+                var spendingID = event.target.id.replace( /[^\d.]/g, '' );
+                var isProfit = "false";
+
+                if(!confirm("Are you really want to delete this spending?"))
+                {
+                    return;
+                }
+
+                $.ajax({
+                    url : "deleteCashFlow",
+                    type : "POST",
+                    data : {
+                        isProfit : isProfit,
+                        cashFlowID : spendingID
+                    },
+                    success : function (responseText) {
+                        if(responseText === "success"){
+                            var deleteID = "#trSpending" + spendingID;
+                            $(deleteID).remove();
+                            alert("Good response - Spending is removed!");
+                        }
+                        else
+                        {
+                            alert("Bad response! " + responseText);
+                        }
+                    }
+                });
+            })
+        })
+    </script>
     <title>Cash Flow</title>
+
     <style>
         table, th, td {
             border: 1px solid black;
@@ -22,21 +91,10 @@
         }
     </style>
 </head>
+
 <body>
     <jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
     <jsp:include page="/WEB-INF/views/navbar.jsp"></jsp:include>
-
-    <c:if test="${not empty deleteProfitSuccess}">
-        <script>
-            window.alert("Profit was deleted successfully!");
-        </script>
-    </c:if>
-
-    <c:if test="${not empty deleteSpendingSuccess}">
-        <script>
-            window.alert("Spending was deleted successfully!");
-        </script>
-    </c:if>
 
     <script>
         function addProfit()
@@ -96,6 +154,8 @@
         {
             document.getElementById("hiddenEditSpending").style.display = "none";
         }
+
+
     </script>
 
     <h3>Cash Flow Information Page</h3>
@@ -115,7 +175,7 @@
             </tr>
 
             <c:forEach items="${profitsList}" var="profit">
-                <tr>
+                <tr id="trProfit${profit.getID()}">
                     <td>${profit.getID()}</td>
                     <td>${profit.getDescription()}</td>
                     <td>${profit.getCategory()}</td>
@@ -126,7 +186,7 @@
                                 '${profit.getDescription()}', '${profit.getCategory()}', ${profit.getValue()})">Edit</button>
                     </td>
                     <td>
-                        <button type="button" value="Delete" name="btnProfitDelete" onclick="">Delete</button>
+                        <button type="button" value="Delete" name="btnProfitDelete" class="btnProfitDelete" id="btnProfit${profit.getID()}">Delete</button>
                     </td>
                 </tr>
             </c:forEach>
@@ -181,7 +241,7 @@
             </tr>
 
             <c:forEach items="${spendingList}" var="spending">
-                <tr>
+                <tr id="trSpending${spending.getID()}">
                     <td>${spending.getID()}</td>
                     <td>${spending.getDescription()}</td>
                     <td>${spending.getCategory()}</td>
@@ -192,7 +252,7 @@
                                 '${spending.getDescription()}', '${spending.getCategory()}', ${spending.getValue()})">Edit</button>
                     </td>
                     <td>
-                        <button type="button" value="Delete" name="btnSpendingDelete" onclick="">Delete</button>
+                        <button type="button" value="Delete" name="btnSpendingDelete" class="btnSpendingDelete" id="btnSpending${spending.getID()}">Delete</button>
                     </td>
                 </tr>
             </c:forEach>
