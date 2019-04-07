@@ -44,4 +44,5 @@ BEGIN
 	SET @balance = @balance + @balanceChange
 END
 
+SET @balance = CAST(ROUND(@balance, 2) AS DECIMAL(16, 2))
 UPDATE User_Account SET Balance = @balance WHERE ID = @userID

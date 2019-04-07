@@ -1,6 +1,7 @@
 package financetracker.beans;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 
 public class UserAccount implements Serializable{
 
@@ -25,6 +26,8 @@ public class UserAccount implements Serializable{
         this.password = password;
         this.role = role;
         this.balance = balance;
+
+        this.formatBalance();
     }
 
     public void setUserName(String userName)
@@ -75,5 +78,28 @@ public class UserAccount implements Serializable{
     public void setBalance(double balance)
     {
         this.balance = balance;
+        this.formatBalance();
+    }
+
+    private void formatBalance()
+    {
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        String formatted = decimalFormat.format(balance);
+        double finalValue = 0;
+
+        boolean hasError = false;
+        try
+        {
+            finalValue = (Double) decimalFormat.parse(formatted) ;
+        }
+        catch (Exception e)
+        {
+            hasError = true;
+        }
+
+        if(!hasError)
+        {
+            balance = finalValue;
+        }
     }
 }
