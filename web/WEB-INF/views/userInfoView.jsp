@@ -10,6 +10,8 @@
 <html>
 <head>
     <script src="${pageContext.request.contextPath}/javascript/userInfoFunctions.js"></script>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/formsCSS.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbarCSS.css">
 
     <title>User Info</title>
 </head>

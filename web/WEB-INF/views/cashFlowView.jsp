@@ -13,6 +13,8 @@
     <script src="${pageContext.request.contextPath}/javascript/cashFlowFunctions.js"></script>
     <script src="${pageContext.request.contextPath}/javascript/cashFlowJQuery.js"></script>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/cashFlowCSS.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/formsCSS.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbarCSS.css">
 
     <title>Cash Flow</title>
 </head>
@@ -26,7 +28,7 @@
     <p style="color: red;">${errorString}</p>
 
     <%-- Div-container that contains table with profits and containers that contain forms to add and edit profits--%>
-    <div style="float: left; width: 50%;">
+    <div style="float: left; width: 50%; overflow-y: auto;">
         <caption><h1 style="text-align: center">Profits</h1></caption>
         <table id="tableProfits">
             <tr>
@@ -46,13 +48,13 @@
                     <td>${profit.getDescription()}</td>
                     <td>${profit.getCategory()}</td>
                     <td>${profit.getCreationDate()}</td>
-                    <td>${profit.getValue()}</td>
+                    <td class="profitValue">${profit.getValue()}</td>
                     <td>
-                        <button type="button" value="Edit" name="btnProfitEdit" onclick="editProfit(${profit.getID()},
+                        <button type="button" value="Edit" name="btnProfitEdit" class="tableBtns" onclick="editProfit(${profit.getID()},
                                 '${profit.getDescription()}', '${profit.getCategory()}', ${profit.getValue()})">Edit</button>
                     </td>
                     <td>
-                        <button type="button" value="Delete" name="btnProfitDelete" class="btnProfitDelete" id="btnProfit${profit.getID()}">Delete</button>
+                        <button type="button" value="Delete" name="btnProfitDelete" class="btnProfitDelete tableBtns" id="btnProfit${profit.getID()}">Delete</button>
                     </td>
                 </tr>
             </c:forEach>
@@ -60,7 +62,7 @@
 
         <%-- button to show form that allows to add new profit --%>
         <br/>
-        <button type="button" value="AddProfit" name="btnProfitAdd" onclick="addProfit()">Add profit</button><br/><br/>
+        <button type="button" value="AddProfit" name="btnProfitAdd" class="addBtns" onclick="addProfit()">Add profit</button><br/><br/>
 
         <%-- hidden div-container that contains form to add new profit - appears on button click --%>
         <div id="hiddenAddProfit" style="display: none;">
@@ -97,7 +99,7 @@
     </div>
 
     <%-- Div-container that contains table with spending and containers that contain forms to add and edit spending--%>
-    <div style="float: left; width: 50%;">
+    <div style="float: left; width: 50%;overflow-y: auto;">
         <caption><h1 style="text-align: center">Spending</h1></caption>
         <table id="tableSpending">
             <tr>
@@ -117,13 +119,13 @@
                     <td>${spending.getDescription()}</td>
                     <td>${spending.getCategory()}</td>
                     <td>${spending.getCreationDate()}</td>
-                    <td>${spending.getValue()}</td>
+                    <td class="spendingValue">${spending.getValue()}</td>
                     <td>
-                        <button type="button" value="Edit" name="btnSpendingEdit" onclick="editSpending(${spending.getID()},
+                        <button type="button" value="Edit" class="tableBtns" name="btnSpendingEdit" onclick="editSpending(${spending.getID()},
                                 '${spending.getDescription()}', '${spending.getCategory()}', ${spending.getValue()})">Edit</button>
                     </td>
                     <td>
-                        <button type="button" value="Delete" name="btnSpendingDelete" class="btnSpendingDelete" id="btnSpending${spending.getID()}">Delete</button>
+                        <button type="button" value="Delete" name="btnSpendingDelete" class="btnSpendingDelete tableBtns" id="btnSpending${spending.getID()}">Delete</button>
                     </td>
                 </tr>
             </c:forEach>
@@ -131,7 +133,7 @@
 
         <%-- button to show form that allows to add new spending --%>
         <br/>
-        <button type="button" value="AddSpending" name="btnSpendingAdd" onclick="addSpending()">Add spending</button><br/><br/>
+        <button type="button" value="AddSpending" name="btnSpendingAdd" class="addBtns" onclick="addSpending()">Add spending</button><br/><br/>
 
         <%-- hidden div-container that contains form to add new spending - appears on button click --%>
         <div id="hiddenAddSpending" style="display: none;">

@@ -8,6 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/formsCSS.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbarCSS.css">
+
     <title>Login</title>
 </head>
 <body>
@@ -19,9 +22,9 @@
 
     <form method="post" action="${pageContext.request.contextPath}/login?redirect=${pageContext.request.getParameter("redirect")}">
         User Name:<br>
-        <input type="text" name="username" value="${user.getUserName()}"><br>
+        <input type="text" name="username" placeholder="Your username" value="${user.getUserName()}"><br>
         Password:<br>
-        <input type="password" name="password" value="${user.getPassword()}"><br><br>
+        <input type="password" name="password" placeholder="Your password" value="${user.getPassword()}"><br><br>
         <input type="submit" value="Submit">
         <a href="${pageContext.request.contextPath}/">Cancel</a>
     </form>

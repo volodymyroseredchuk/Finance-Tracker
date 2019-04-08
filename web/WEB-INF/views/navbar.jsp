@@ -9,17 +9,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div style="padding: 5px;">
 
-    <a href="${pageContext.request.contextPath}/">Home</a>
+    <ul id="navbarUL">
+        <li><a href="${pageContext.request.contextPath}/" class="active">Home</a></li>
 
-    <!-- User stored in session with attribute: loginedUser -->
+        <!-- User stored in session with attribute: loginedUser -->
 
-    <!-- Display Log in and Sign up menu only for not logined users -->
-    <c:if test="${empty loginedUser}">
-        <a href="${pageContext.request.contextPath}/login">Log in</a>
-        <a href="${pageContext.request.contextPath}/signup">Sign up</a>
-    </c:if>
+        <!-- Display Log in and Sign up menu only for not logined users -->
+        <c:if test="${empty loginedUser}">
+            <li><a href="${pageContext.request.contextPath}/login">Log in</a></li>
+            <li><a href="${pageContext.request.contextPath}/signup">Sign up</a></li>
+        </c:if>
 
-    <a href="${pageContext.request.contextPath}/userInfo">User Info</a>
-    <a href="${pageContext.request.contextPath}/cashFlow">Cash Flow</a>
-
+        <li><a href="${pageContext.request.contextPath}/userInfo">User Info</a></li>
+        <li><a href="${pageContext.request.contextPath}/cashFlow">Cash Flow</a></li>
+    </ul>
 </div>
